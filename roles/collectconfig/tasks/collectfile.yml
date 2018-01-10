@@ -1,7 +1,7 @@
 ---
 # tasks file for collectconfig
 - block:
-  - name: collect file
+  - name: "collect file [{{ collect_file }}]"
     fetch:
       src: "{{ collect_file }}"
       dest: "collectdata/{{ collect_datetime }}/{{ ansible_hostname }}"
