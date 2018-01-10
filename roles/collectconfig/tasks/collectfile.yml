@@ -1,0 +1,6 @@
+---
+# tasks file for collectconfig
+- name: collect file
+  fetch:
+    src: "{{ collect_file }}"
+    dest: "collectdata/{{ collect_datetime }}"
