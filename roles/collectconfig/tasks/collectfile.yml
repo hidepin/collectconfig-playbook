@@ -1,6 +1,5 @@
 ---
 # tasks file for collectconfig
-
 - block:
   - name: collect file
     fetch:
