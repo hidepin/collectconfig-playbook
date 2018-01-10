@@ -9,3 +9,10 @@
     "{{ collect_files }}"
   loop_control:
     loop_var: collect_file
+
+- name: collect cli
+  include_tasks: collectcli.yml
+  with_items:
+    "{{ collect_cli_commands }}"
+  loop_control:
+    loop_var: collect_cli

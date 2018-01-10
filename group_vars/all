@@ -3,3 +3,5 @@
 #  https_proxy: http://172.16.111.1:8080
 collect_files:
   - /etc/redhat-release
+collect_cli_commands:
+  - { filename: 'ps', command: 'ps -ef' }
