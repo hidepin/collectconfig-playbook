@@ -2,6 +2,7 @@
 # tasks file for collectconfig
 - name: set collect datetime
   set_fact: collect_datetime="{{ ansible_date_time.date|regex_replace('-', '') }}{{ ansible_date_time.time|regex_replace(':', '') }}"
+  run_once: true
 
 - name: collect files
   include_tasks: collectfile.yml
