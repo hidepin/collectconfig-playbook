@@ -1,6 +1,7 @@
 ---
 # defaults file for collectconfig
 proxy_env:
+  no_proxy: '*'
 #  http_proxy: http://172.16.111.1:8080
 #  https_proxy: http://172.16.111.1:8080
 collect_files:
