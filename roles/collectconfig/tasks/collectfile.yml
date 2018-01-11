@@ -4,7 +4,8 @@
   - name: "collect file [{{ collect_file }}]"
     fetch:
       src: "{{ collect_file }}"
-      dest: "{{ output }}/{{ collect_datetime }}/{{ ansible_hostname }}"
+      dest: "{{ output }}/{{ collect_datetime }}/{{ ansible_hostname }}/{{ collect_file }}"
+      flat: true
 
   when: >
     collect_file != None
