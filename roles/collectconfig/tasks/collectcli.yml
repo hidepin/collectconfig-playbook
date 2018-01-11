@@ -6,7 +6,7 @@
     register: cli_result
 
   - name: "collect cli output [{{ collect_cli.filename }}]"
-    local_action: copy content={{ cli_result.stdout }} dest=collectdata/{{ collect_datetime }}/{{ ansible_hostname }}/{{ collect_cli.filename }}
+    local_action: copy content={{ cli_result.stdout }} dest={{ output }}/{{ collect_datetime }}/{{ ansible_hostname }}/{{ collect_cli.filename }}
 
   when: >
     collect_cli != None
