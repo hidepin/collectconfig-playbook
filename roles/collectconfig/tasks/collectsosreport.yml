@@ -1,7 +1,7 @@
 ---
 # tasks file for collectconfig
 - name: exec sosreport
-  shell: "sosreport {{ sosreport_option }}|grep '/var/tmp/sosreport-'| sed 's/^ *//'"
+  shell: "{{ sosreport_prefix }} sosreport {{ sosreport_option }}|grep '/var/tmp/sosreport-'| sed 's/^ *//'"
   register: sosreport_result
 
 - name: collect sosreport
