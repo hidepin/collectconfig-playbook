@@ -1,0 +1,22 @@
+---
+# tasks file for collectconfig
+- name: exec sosreport
+  shell: "sosreport {{ sosreport_option }}|grep '/var/tmp/sosreport-'| sed 's/^ *//'"
+  register: sosreport_result
+
+- name: collect sosreport
+  fetch:
+    src: "{{ sosreport_result.stdout }}"
+    dest: "{{ output }}/{{ collect_datetime }}/{{ ansible_hostname }}/{{ item }}"
+    flat: true
+  with_items:
+    - "{{ sosreport_result.stdout }}"
+    - "{{ sosreport_result.stdout }}.md5"
+
+- name: delete sosreport
+  file:
+    path: "{{ item }}"
+    state: absent
+  with_items:
+    - "{{ sosreport_result.stdout }}"
+    - "{{ sosreport_result.stdout }}.md5"

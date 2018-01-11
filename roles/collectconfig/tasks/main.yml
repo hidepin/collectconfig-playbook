@@ -17,3 +17,7 @@
     "{{ collect_cli_commands }}"
   loop_control:
     loop_var: collect_cli
+
+- name: collect sosreport
+  include_tasks: collectsosreport.yml
+  when: collect_sosreport
