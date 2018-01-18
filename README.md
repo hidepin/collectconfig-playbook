@@ -46,6 +46,28 @@ group_vars/allの *collect_cli_commands* に実行するコマンドと、出力
 - filename: 実行結果を保存するファイル名を設定する
 - command: 実行するコマンド
 
+### gateway経由の情報収集設定
+
+1. group_vars/allにgateway設定を追加する
+
+  - gateway_addressにはgatewayのIPアドレスを設定する。(以下例のxxx.xxx.xxx.xxxを書き換える)
+  - gateway_userにはgatewayにアクセスするユーザを設定する。(以下例のrootを書き換える。rootでなくてもよい。)
+  - 下記例の用に3行を再就業に追記する
+
+  ```
+  gateway_address: 'xxx.xxx.xxx.xxx'
+  gateway_user: 'root'
+  ansible_ssh_common_args: '-o ProxyCommand="sshpass -f {{ gateway_password_file }} ssh -l {{ gateway_user }} {{ gateway_address }} -W %h:%p"'
+  ```
+
+2. gatewayにアクセスするユーザのパスワードファイルを配置する
+
+  - 1の手順のgateway_userのパスワードを配置する
+
+  ```
+  echo '<パスワード>' > gatewaypassword
+  ```
+
 ## 実行方法
 
 ### 通常実行
