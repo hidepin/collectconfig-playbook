@@ -8,6 +8,7 @@ output: collectdata
 collect_sosreport: false
 sosreport_prefix: ''
 sosreport_option: '--batch'
+sosreport_delete: true
 collect_files:
   - /etc/redhat-release
 collect_cli_commands:

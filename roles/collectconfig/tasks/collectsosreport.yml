@@ -20,3 +20,4 @@
   with_items:
     - "{{ sosreport_result.stdout }}"
     - "{{ sosreport_result.stdout }}.md5"
+  when: sosreport_delete
