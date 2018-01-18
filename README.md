@@ -46,7 +46,19 @@ group_vars/allの *collect_cli_commands* に実行するコマンドと、出力
 - filename: 実行結果を保存するファイル名を設定する
 - command: 実行するコマンド
 
-### gateway経由の情報収集設定
+### 取得対象サーバ設定
+
+取得対象サーバを指定するには
+productionファイルにIPアドレスを記載する
+
+- 例: 172.16.0.1と172.16.0.2から収集する例
+
+  ```
+  172.16.0.1
+  172.16.0.2
+  ```
+
+### gateway経由の情報収集設定(Optional)
 
 1. group_vars/allにgateway設定を追加する
 
