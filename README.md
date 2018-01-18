@@ -8,6 +8,29 @@
 - 取得するファイル名は完全一致のみ取得可能(アスタリスク、ディレクトリ指定は不可)
 - 取得ファイル、取得コマンドの結果は、{{ output }}/{{ hostname }}配下に取得元のディレクトリ構成で取得する
 
+## 実行環境
+
+- OS:
+  - RHEL 7.x
+  - CentOS 7.x
+- Ansible:
+  - 2.4.x
+- sshpass
+
+## 初期セットアップ
+
+1. ansibleとsshpassのインストール
+
+  - RHEL7.xの場合
+    ```
+    yum install -y --enablerepo rhel-7-server-extras-rpms ansible sshpass
+    ```
+
+  - CentOS7.xの場合
+    ```
+    yum install -y ansible sshpass
+    ```
+
 ## 設定
 
 ### 取得ファイル設定
