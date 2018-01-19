@@ -58,6 +58,23 @@ productionファイルにIPアドレスを記載する
   172.16.0.2
   ```
 
+### 取得対象サーバ毎にパスワードが異なる場合の設定(Optional)
+
+1. ansible.cfgのask_passを無効化する
+
+  ```
+  sed -i 's/^ask_pass = True/ask_pass = False/' ansible.cfg
+  ```
+
+2. productionファイルのIPアドレスの後ろにansible_ssh_passを追記する
+
+- 例: 172.16.0.1と172.16.0.2のパスワードがそれぞれhogeとfooの場合
+
+  ```
+  172.16.0.1 ansible_ssh_pass=hoge
+  172.16.0.2 ansible_ssh_pass=foo
+  ```
+
 ### gateway経由の情報収集設定(Optional)
 
 1. group_vars/allにgateway設定を追加する
