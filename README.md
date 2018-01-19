@@ -62,9 +62,9 @@ productionファイルにIPアドレスを記載する
 
 1. ansible.cfgのask_passを無効化する
 
-  ```
-  sed -i 's/^ask_pass = True/ask_pass = False/' ansible.cfg
-  ```
+    ```
+    sed -i 's/^ask_pass = True/ask_pass = False/' ansible.cfg
+    ```
 
 2. productionファイルのIPアドレスの後ろにansible_ssh_passを追記する
 
@@ -83,33 +83,34 @@ productionファイルにIPアドレスを記載する
   - gateway_userにはgatewayにアクセスするユーザを設定する。(以下例のrootを書き換える。rootでなくてもよい。)
   - 下記例の用に3行を再就業に追記する
 
-  ```
-  gateway_address: 'xxx.xxx.xxx.xxx'
-  gateway_user: 'root'
-  ansible_ssh_common_args: '-o ProxyCommand="sshpass -f {{ gateway_password_file }} ssh -l {{ gateway_user }} {{ gateway_address }} -W %h:%p"'
-  ```
+    ```
+    gateway_address: 'xxx.xxx.xxx.xxx'
+    gateway_user: 'root'
+    ansible_ssh_common_args: '-o ProxyCommand="sshpass -f {{ gateway_password_file }} ssh -l {{ gateway_user }} {{ gateway_address }} -W %h:%p"'
+    ```
 
 2. gatewayにアクセスするユーザのパスワードファイルを配置する
 
   - 1の手順のgateway_userのパスワードを配置する
 
-  ```
-  echo '<パスワード>' > gatewaypassword
-  ```
+    ```
+    echo '<パスワード>' > gatewaypassword
+    ```
 
 ## 実行方法
 
 ### 通常実行
 
-'''
+
+```
 ansible-playbook site.yml
-'''
+```
 
 ### sosreport取得実行
 
-'''
+```
 ansible-playbook site.yml -e collect_sosreport=true
-'''
+```
 
 ### outputディレクトリ指定実行
 
@@ -121,12 +122,12 @@ ansible-playbook site.yml -e output=sample
 
 ### outputディレクトリを指定しsosreportを取得
 
-'''
+```
 ansible-playbook site.yml -e collect_sosreport=true -e output=sample
-'''
+```
 
 ### sosreportを取得する場合、対象ホストで削除を実施しない場合(/var/tmp/sosreport-を削除しない)
 
-'''
+```
 ansible-playbook site.yml -e collect_sosreport=true -e sosreport_delete=false
-'''
+```
