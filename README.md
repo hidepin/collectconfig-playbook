@@ -81,7 +81,7 @@ productionファイルにIPアドレスを記載する
 
   - gateway_addressにはgatewayのIPアドレスを設定する。(以下例のxxx.xxx.xxx.xxxを書き換える)
   - gateway_userにはgatewayにアクセスするユーザを設定する。(以下例のrootを書き換える。rootでなくてもよい。)
-  - 下記例の用に3行を再就業に追記する
+  - 下記例の用に3行を最終行に追記する
 
     ```
     gateway_address: 'xxx.xxx.xxx.xxx'
