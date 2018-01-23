@@ -58,23 +58,6 @@ productionファイルにIPアドレスを記載する
   172.16.0.2
   ```
 
-### 取得対象サーバ毎にパスワードが異なる場合の設定(Optional)
-
-1. ansible.cfgのask_passを無効化する
-
-    ```
-    sed -i 's/^ask_pass = True/ask_pass = False/' ansible.cfg
-    ```
-
-2. productionファイルのIPアドレスの後ろにansible_ssh_passを追記する
-
-- 例: 172.16.0.1と172.16.0.2のパスワードがそれぞれhogeとfooの場合
-
-  ```
-  172.16.0.1 ansible_ssh_pass=hoge
-  172.16.0.2 ansible_ssh_pass=foo
-  ```
-
 ### gateway経由の情報収集設定(Optional)
 
 1. group_vars/allにgateway設定を追加する
@@ -96,6 +79,68 @@ productionファイルにIPアドレスを記載する
     ```
     echo '<パスワード>' > gatewaypassword
     ```
+
+### 取得対象サーバにログイン後rootで収集するの設定(Optional)
+
+1. ansible.cfgのremote_userをrootからログインユーザに変更する。
+
+    ```
+    sed -i 's/root/(ログインユーザ)/' ansible.cfg
+    ```
+
+2. group_vars/allにログイン後rootになる設定を追加する。
+
+  - ansible_becomeを有効化する
+  - ansible_become_methodにsuを設定する
+  - ansible_become_userをrootを設定する
+  - 下記実行例のに従い3行を最終行に追記する
+
+    ```
+    echo "ansible_become: true" > group_vars/allw
+    echo "ansible_become_method: 'su'" > group_vars/all
+    echo "ansible_become_user: 'root'" > group_vars/all
+    ```
+
+3. rootパスワードを実行時に入力できるようにansible.cfgに設定
+
+  - ask_sudo_passを有効化する
+  - 下記実行例のに従い1行を最終行に追記する
+
+    ```
+    echo "ask_sudo_pass = True" > ansible.cfg
+    ```
+
+### 取得対象サーバ毎にパスワードが異なる場合の設定(Optional)
+
+1. ansible.cfgのask_passを無効化する
+
+    ```
+    sed -i 's/^ask_pass = True/ask_pass = False/' ansible.cfg
+    ```
+
+2. productionファイルのIPアドレスの後ろにansible_ssh_passを追記する
+
+- 例: 172.16.0.1と172.16.0.2のパスワードがそれぞれhogeとfooの場合
+
+  ```
+  172.16.0.1 ansible_ssh_pass=hoge
+  172.16.0.2 ansible_ssh_pass=foo
+  ```
+
+3. ログイン後rootになる場合、ansible.cfgのask_sudo_passを無効化する
+
+    ```
+    sed -i 's/^ask_sudo_pass = True/ask_sudo_pass = False/' ansible.cfg
+    ```
+
+4. ログイン後rootになる場合、productionファイルのIPアドレスの後ろにansible_become_passを追記する
+
+- 例: 172.16.0.1と172.16.0.2のパスワードがそれぞれhogehogeとfoofooの場合
+
+  ```
+  172.16.0.1 ansible_ssh_pass=hoge ansible_become_pass=hogehoge
+  172.16.0.2 ansible_ssh_pass=foo ansible_become_pass=foofoo
+  ```
 
 ## 実行方法
 
