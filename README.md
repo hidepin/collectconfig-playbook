@@ -81,12 +81,12 @@ productionファイルにIPアドレスを記載する
 
   - gateway_addressにはgatewayのIPアドレスを設定する。(以下例のxxx.xxx.xxx.xxxを書き換える)
   - gateway_userにはgatewayにアクセスするユーザを設定する。(以下例のrootを書き換える。rootでなくてもよい。)
-  - 下記例の用に3行を最終行に追記する
+  - 下記実行例のに従い3行を最終行に追記する
 
     ```
-    gateway_address: 'xxx.xxx.xxx.xxx'
-    gateway_user: 'root'
-    ansible_ssh_common_args: '-o ProxyCommand="sshpass -f {{ gateway_password_file }} ssh -l {{ gateway_user }} {{ gateway_address }} -W %h:%p"'
+    echo "gateway_address: 'xxx.xxx.xxx.xxx'" > group_vars/all
+    echo "gateway_user: 'root'" > group_vars/all
+    echo "ansible_ssh_common_args: '-o ProxyCommand=\"sshpass -f {{ gateway_password_file }} ssh -l {{ gateway_user }} {{ gateway_address }} -W %h:%p\"'" > group_vars/all
     ```
 
 2. gatewayにアクセスするユーザのパスワードファイルを配置する
