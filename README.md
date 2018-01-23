@@ -67,9 +67,9 @@ productionファイルにIPアドレスを記載する
   - 下記実行例のに従い3行を最終行に追記する
 
     ```
-    echo "gateway_address: 'xxx.xxx.xxx.xxx'" > group_vars/all
-    echo "gateway_user: 'root'" > group_vars/all
-    echo "ansible_ssh_common_args: '-o ProxyCommand=\"sshpass -f {{ gateway_password_file }} ssh -l {{ gateway_user }} {{ gateway_address }} -W %h:%p\"'" > group_vars/all
+    echo "gateway_address: 'xxx.xxx.xxx.xxx'" >> group_vars/all
+    echo "gateway_user: 'root'" >> group_vars/all
+    echo "ansible_ssh_common_args: '-o ProxyCommand=\"sshpass -f {{ gateway_password_file }} ssh -l {{ gateway_user }} {{ gateway_address }} -W %h:%p\"'" >> group_vars/all
     ```
 
 2. gatewayにアクセスするユーザのパスワードファイルを配置する
@@ -96,9 +96,9 @@ productionファイルにIPアドレスを記載する
   - 下記実行例のに従い3行を最終行に追記する
 
     ```
-    echo "ansible_become: true" > group_vars/allw
-    echo "ansible_become_method: 'su'" > group_vars/all
-    echo "ansible_become_user: 'root'" > group_vars/all
+    echo "ansible_become: true" >> group_vars/all
+    echo "ansible_become_method: 'su'" >> group_vars/all
+    echo "ansible_become_user: 'root'" >> group_vars/all
     ```
 
 3. rootパスワードを実行時に入力できるようにansible.cfgに設定
@@ -107,7 +107,7 @@ productionファイルにIPアドレスを記載する
   - 下記実行例のに従い1行を最終行に追記する
 
     ```
-    echo "ask_sudo_pass = True" > ansible.cfg
+    echo "ask_sudo_pass = True" >> ansible.cfg
     ```
 
 ### 取得対象サーバ毎にパスワードが異なる場合の設定(Optional)
