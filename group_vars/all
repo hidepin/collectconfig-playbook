@@ -4,4 +4,4 @@
 collect_files:
   - /etc/redhat-release
 collect_cli_commands:
-  - { filename: 'ps', command: 'ps -ef' }
+  - { filename: 'ps', command: '/bin/ps -ef' }

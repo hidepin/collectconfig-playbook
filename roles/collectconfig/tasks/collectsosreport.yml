@@ -1,9 +1,16 @@
 ---
 # tasks file for collectconfig
 - name: exec sosreport
-  shell: "{{ sosreport_prefix }} sosreport {{ sosreport_option }}|grep '/var/tmp/sosreport-'| sed 's/^ *//'"
+  shell: "{{ sosreport_prefix }} /sbin/sosreport {{ sosreport_option }}|/bin/grep '/var/tmp/sosreport-'| /bin/sed 's/^ *//'"
   register: sosreport_result
   become: "{{ become_enabled }}"
+
+- name: add read permission
+  file:
+    path: "{{ sosreport_result.stdout }}"
+    mode: 0644
+  become: "{{ become_enabled }}"
+  when: become_enabled
 
 - name: collect sosreport
   fetch:

@@ -4,6 +4,7 @@
 
 - デフォルトでsosreportは取得しない
 - sosreport取得時、デフォルトで/var/tmp/sosreport-を削除する。(sosreport_delete=falseで削除しないことも可能)
+- ログイン後rootになる場合、/var/tmp/sosreport-は全ユーザにread権が付与される。
 - 取得ファイル一覧にあるファイルをすべて取得しようとする。存在しない場合は処理をskipしエラーとはならない。
 - 取得するファイル名は完全一致のみ取得可能(アスタリスク、ディレクトリ指定は不可)
 - 取得ファイル、取得コマンドの結果は、{{ output }}/{{ hostname }}配下に取得元のディレクトリ構成で取得する
@@ -44,7 +45,7 @@ group_vars/allの *collect_files* に取得ファイルを指定する
 group_vars/allの *collect_cli_commands* に実行するコマンドと、出力するファイル名を指定する
 
 - filename: 実行結果を保存するファイル名を設定する
-- command: 実行するコマンド
+- command: 実行するコマンド(full pathで記載すること)
 
 ### 取得対象サーバ設定
 
