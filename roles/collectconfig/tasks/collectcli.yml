@@ -4,9 +4,11 @@
   - name: "collect cli [{{ collect_cli.filename }}]"
     shell: "{{ collect_cli.command }}"
     register: cli_result
+    become: "{{ become_enabled }}"
 
   - name: "collect cli output [{{ collect_cli.filename }}]"
     local_action: copy content={{ cli_result.stdout }} dest={{ output }}/{{ collect_datetime }}/{{ ansible_hostname }}/{{ collect_cli.filename }}
+    become: false
 
   when: >
     collect_cli != None

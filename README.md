@@ -90,24 +90,21 @@ productionファイルにIPアドレスを記載する
 
 2. group_vars/allにログイン後rootになる設定を追加する。
 
-  - ansible_becomeを有効化する
   - ansible_become_methodにsuを設定する
   - ansible_become_userをrootを設定する
+  - become_enabledをtrueに設定する
   - 下記実行例のに従い3行を最終行に追記する
 
     ```
-    echo "ansible_become: true" >> group_vars/all
     echo "ansible_become_method: 'su'" >> group_vars/all
     echo "ansible_become_user: 'root'" >> group_vars/all
+    echo "become_enabled: true" >> group_vars/all
     ```
 
-3. rootパスワードを実行時に入力できるようにansible.cfgに設定
-
-  - ask_sudo_passを有効化する
-  - 下記実行例のに従い1行を最終行に追記する
+3. ansible_become_passを指定しない場合、コマンド実行時 `-K` オプションを指定して実行する (Optinal)
 
     ```
-    echo "ask_sudo_pass = True" >> ansible.cfg
+    ansible-playbook site.yml -K
     ```
 
 ### 取得対象サーバ毎にパスワードが異なる場合の設定(Optional)
@@ -127,13 +124,7 @@ productionファイルにIPアドレスを記載する
   172.16.0.2 ansible_ssh_pass=foo
   ```
 
-3. ログイン後rootになる場合、ansible.cfgのask_sudo_passを無効化する
-
-    ```
-    sed -i 's/^ask_sudo_pass = True/ask_sudo_pass = False/' ansible.cfg
-    ```
-
-4. ログイン後rootになる場合、productionファイルのIPアドレスの後ろにansible_become_passを追記する
+3. ログイン後rootになる場合、productionファイルのIPアドレスの後ろにansible_become_passを追記する(Optional)
 
 - 例: 172.16.0.1と172.16.0.2のパスワードがそれぞれhogehogeとfoofooの場合
 

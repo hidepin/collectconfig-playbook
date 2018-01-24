@@ -6,6 +6,7 @@
       src: "{{ collect_file }}"
       dest: "{{ output }}/{{ collect_datetime }}/{{ ansible_hostname }}/{{ collect_file }}"
       flat: true
+    become: "{{ become_enabled }}"
 
   when: >
     collect_file != None

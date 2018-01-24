@@ -3,6 +3,7 @@
 - name: exec sosreport
   shell: "{{ sosreport_prefix }} sosreport {{ sosreport_option }}|grep '/var/tmp/sosreport-'| sed 's/^ *//'"
   register: sosreport_result
+  become: "{{ become_enabled }}"
 
 - name: collect sosreport
   fetch:
@@ -12,6 +13,7 @@
   with_items:
     - "{{ sosreport_result.stdout }}"
     - "{{ sosreport_result.stdout }}.md5"
+  become: false
 
 - name: delete sosreport
   file:
@@ -20,4 +22,5 @@
   with_items:
     - "{{ sosreport_result.stdout }}"
     - "{{ sosreport_result.stdout }}.md5"
+  become: "{{ become_enabled }}"
   when: sosreport_delete
