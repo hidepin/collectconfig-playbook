@@ -1,12 +1,35 @@
 ---
 # tasks file for collectconfig
 - block:
+  - name: stat collect file
+    stat:
+      path: "{{ collect_file }}"
+    register: collect_file_stat_result
+    become: "{{ become_enabled }}"
+
+  - name: collect file size check result
+    debug:
+      msg:
+        - "************************************************************"
+        - "Skip collect"
+        - "size over of {{ collect_file }}(size: {{ collect_file_stat_result.stat.size }})"
+        - "limit: {{ collect_file_max_size }}"
+        - "************************************************************"
+    when: >
+      become_enabled and
+      collect_file_stat_result.stat.exists and
+      collect_file_stat_result.stat.size > collect_file_max_size
+
   - name: "collect file [{{ collect_file }}]"
     fetch:
       src: "{{ collect_file }}"
       dest: "{{ output }}/{{ collect_datetime }}/{{ ansible_hostname }}/{{ collect_file }}"
       flat: true
     become: "{{ become_enabled }}"
+    when: >
+      collect_file_stat_result.stat.exists and
+      ( not become_enabled or
+      collect_file_stat_result.stat.size <= collect_file_max_size )
 
   when: >
     collect_file != None
