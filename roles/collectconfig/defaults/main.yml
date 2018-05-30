@@ -8,7 +8,7 @@ become_enabled: false
 gateway_address: 'xxx.xxx.xxx.xxx'
 gateway_user: 'root'
 gateway_password_file: 'gatewaypassword'
-#+ansible_ssh_common_args: '-o ProxyCommand="sshpass -f {{ gateway_password_file }} ssh -l {{ gateway_user }} {{ gateway_address }} -W %h:%p"'
+#ansible_ssh_common_args: '-o ProxyCommand="sshpass -f {{ gateway_password_file }} ssh -l {{ gateway_user }} {{ gateway_address }} -W %h:%p"'
 output: collectdata
 collect_sosreport: false
 sosreport_prefix: ''
