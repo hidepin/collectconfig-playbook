@@ -4,6 +4,19 @@
   set_fact: collect_datetime="{{ ansible_date_time.date|regex_replace('-', '') }}{{ ansible_date_time.time|regex_replace(':', '') }}"
   run_once: true
 
+- name: "create output dir"
+  local_action:
+    module: file
+    path: "{{ output }}/{{ collect_datetime }}/{{ ansible_hostname }}"
+    state: directory
+  become: false
+  when: >
+    collect_files != None or
+    collect_cli_commands != None
+
+- name: collect permission
+  include_tasks: collectpermission.yml
+
 - name: collect files
   include_tasks: collectfile.yml
   with_items:
