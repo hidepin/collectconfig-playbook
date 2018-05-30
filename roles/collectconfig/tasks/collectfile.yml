@@ -25,9 +25,11 @@
       src: "{{ collect_file }}"
       dest: "{{ output }}/{{ collect_datetime }}/{{ ansible_hostname }}/{{ collect_file }}"
       flat: true
+      validate_checksum: false
     become: "{{ become_enabled }}"
     when: >
       collect_file_stat_result.stat.exists and
+      not collect_file_stat_result.stat.isdir and
       ( not become_enabled or
       collect_file_stat_result.stat.size <= collect_file_max_size )
 
