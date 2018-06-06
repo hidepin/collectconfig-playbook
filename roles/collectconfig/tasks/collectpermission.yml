@@ -2,7 +2,7 @@
 # tasks file for collectpermission
 - block:
   - name: "collect permission"
-    shell: "LANG=C ls -AFl {{ collect_files|join(' ') }} | egrep -v \"^total\" 2> /dev/null || true"
+    shell: "LANG=C ls -AFl --time-style=+ {{ collect_files|join(' ') }} | egrep -v \"^total\" 2> /dev/null || true"
     register: permission_result
     become: "{{ become_enabled }}"
 
