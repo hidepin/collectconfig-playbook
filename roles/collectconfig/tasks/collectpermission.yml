@@ -1,6 +1,15 @@
 ---
 # tasks file for collectpermission
 - block:
+  - name: "collect files"
+    shell: "LANG=C ls -AFl {{ collect_files|join(' ') }} | egrep -v \"^total\" 2> /dev/null || true"
+    register: files_result
+    become: "{{ become_enabled }}"
+
+  - name: "collect files output"
+    local_action: copy content={{ files_result.stdout }} dest={{ output }}/{{ collect_datetime }}/{{ ansible_hostname }}/collect_files
+    become: false
+
   - name: "collect permission"
     shell: "LANG=C ls -AFl --time-style=+ {{ collect_files|join(' ') }} | egrep -v \"^total\" 2> /dev/null || true"
     register: permission_result
