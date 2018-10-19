@@ -11,6 +11,7 @@ gateway_password_file: 'gatewaypassword'
 #ansible_ssh_common_args: '-o ProxyCommand="sshpass -f {{ gateway_password_file }} ssh -l {{ gateway_user }} {{ gateway_address }} -W %h:%p"'
 output: collectdata
 collect_sosreport: false
+compress_collect_data: true
 sosreport_prefix: ''
 sosreport_option: '--batch'
 sosreport_delete: true

@@ -34,3 +34,11 @@
 - name: collect sosreport
   include_tasks: collectsosreport.yml
   when: collect_sosreport
+
+- name: compress collect data
+  local_action:
+    module: archive
+    path: "{{ output }}/{{ collect_datetime }}"
+    dest: "{{ output }}/{{ collect_datetime }}.tar.bz2"
+    format: bz2
+  when: compress_collect_data
