@@ -1,0 +1,24 @@
+---
+# tasks file for compresscollectdata.yml
+- name: collect data list
+  local_action:
+    module: find
+    path: "{{ output }}/{{ collect_datetime }}"
+    file_type: any
+  register: collect_data_list
+
+- name: create comress dir
+  local_action:
+    module: file
+    path: "{{ collect_data_list.files[0].path|dirname() }}_compress"
+    state: directory
+  run_once: true
+
+- name: compress collect data
+  local_action:
+    module: archive
+    path: "{{ item.path }}"
+    dest: "{{ item.path|dirname() }}_compress/{{ item.path|basename() }}.tar.bz2"
+    format: bz2
+  with_items: "{{ collect_data_list.files }}"
+  run_once: true

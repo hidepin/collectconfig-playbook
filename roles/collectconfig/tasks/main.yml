@@ -36,9 +36,5 @@
   when: collect_sosreport
 
 - name: compress collect data
-  local_action:
-    module: archive
-    path: "{{ output }}/{{ collect_datetime }}"
-    dest: "{{ output }}/{{ collect_datetime }}.tar.bz2"
-    format: bz2
+  include_tasks: compresscollectdata.yml
   when: compress_collect_data
